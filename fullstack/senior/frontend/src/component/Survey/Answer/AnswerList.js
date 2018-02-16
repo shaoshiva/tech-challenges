@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Questions from './Question/QuestionList';
-import apiSurvey from '../../api/survey';
+import Questions from './List/QuestionList';
+import apiSurvey from '../../../api/survey';
 import './Aggregation.css';
 
 /**
@@ -36,10 +36,26 @@ class AnswersCount extends Component {
     }
 }
 
+class Answers extends Component {
+
+    static propTypes = {
+        answers: PropTypes.array.isRequired,
+    };
+
+    render() {
+        return this.props.answers.map((answer, index) =>
+            <div className="AnswerList-answers">
+                <h2>Answer #{index}</h2>
+                <Questions questions={answer.questions} />
+            </div>
+        );
+    }
+}
+
 /**
  * Displays the answers aggregation of a survey
  */
-class Aggregation extends Component {
+class List extends Component {
 
     constructor(props) {
         super(props);
@@ -51,7 +67,7 @@ class Aggregation extends Component {
 
     componentDidMount() {
         // Requests the survey aggregation from the API
-        apiSurvey.methods.aggregationByCode({
+        apiSurvey.methods.answersByCode({
             path: {
                 code: this.props.match.params.code,
             }
@@ -74,13 +90,11 @@ class Aggregation extends Component {
                 <div className="back-to">
                     <Link to="/">&laquo; Back to survey list</Link>
                 </div>
-                <br/>
-                <h2>Answers aggregation</h2>
                 <AnswersCount count={this.state.data.count}/>
-                <Questions questions={this.state.data.questions} />
+                <Answers answers={this.state.data.answers} />
             </div>
         );
     }
 }
 
-export default Aggregation;
+export default List;

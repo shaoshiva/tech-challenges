@@ -15,7 +15,10 @@ class Item extends Component {
             <li className="Survey-list-item">
                 {this.props.label}
                 <div className="actions">
-                    <Link to={'/aggregation/survey/'+this.props.code} className="btn btn-primary btn-sm">
+                    <Link to={'/survey/'+this.props.code+'/answers'} className="btn btn-primary btn-sm">
+                        Show answers
+                    </Link>
+                    <Link to={'/survey/'+this.props.code+'/answers-aggregation'} className="btn btn-primary btn-sm">
                         Show answers aggregation
                     </Link>
                 </div>

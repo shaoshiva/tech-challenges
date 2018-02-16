@@ -17,3 +17,8 @@
     display: inline-block;
     margin-left: 1rem;
 }
+
+.Survey-list-item .actions a {
+    display: inline-block;
+    margin-left: .5rem;
+}
