@@ -1,0 +1,17 @@
+.Survey-list {
+}
+
+.Survey-list > ul {
+    margin: 2rem 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.Survey-list-item {
+
+}
+
+.Survey-list-item .actions {
+    display: inline-block;
+    margin-left: 1rem;
+}

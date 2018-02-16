@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import apiSurvey from '../../api/survey';
+import { Link } from 'react-router-dom';
 import Questions from './Question/QuestionList';
+import apiSurvey from '../../api/survey';
 import './Aggregation.css';
 
 /**
- * The pre-loader
+ * Displays the pre-loader
  */
 class Loader extends Component {
     render() {
@@ -18,9 +19,14 @@ class Loader extends Component {
 }
 
 /**
- * Answers counter
+ * Displays the answers counter
  */
 class AnswersCount extends Component {
+
+    static propTypes = {
+        count: PropTypes.number.isRequired,
+    };
+
     render() {
         return (
             <div className="Aggregation-answers-count">
@@ -30,6 +36,9 @@ class AnswersCount extends Component {
     }
 }
 
+/**
+ * Displays the answers aggregation of a survey
+ */
 class Aggregation extends Component {
 
     constructor(props) {
@@ -61,6 +70,12 @@ class Aggregation extends Component {
 
         return (
             <div className="Aggregation">
+                <h1>Survey &laquo; {this.props.match.params.code} &raquo;</h1>
+                <div className="back-to">
+                    <Link to="/">&laquo; Back to survey list</Link>
+                </div>
+                <br/>
+                <h2>Answers aggregation</h2>
                 <AnswersCount count={this.state.data.count}/>
                 <Questions questions={this.state.data.questions} />
             </div>

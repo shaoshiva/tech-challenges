@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Label as QuestionLabel } from '../QuestionList';
 
 /**
- * Questions list
+ * Displays a question of type Numeric
  */
-class Number extends Component {
+class Numeric extends Component {
 
     static propTypes = {
         label: PropTypes.string.isRequired,
@@ -14,10 +15,11 @@ class Number extends Component {
     render() {
         return (
             <div className="number">
-                {this.props.label} {this.props.value}
+                <QuestionLabel>{this.props.label}</QuestionLabel>
+                {this.props.value}
             </div>
         );
     }
 }
 
-export default Number;
+export default Numeric;

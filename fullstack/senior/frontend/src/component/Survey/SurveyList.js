@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
-import './SurveyList.css';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import './SurveyList.css';
 
-class ListItem extends Component {
+class Item extends Component {
+
+    static propTypes = {
+        label: PropTypes.string.isRequired,
+        code: PropTypes.string.isRequired,
+    };
+
     render() {
         return (
-            <li className="List-Item">
-                <Link to={'/aggregation/survey/'+this.props.code}>
-                    {this.props.label}
-                </Link>
+            <li className="Survey-list-item">
+                {this.props.label}
+                <div className="actions">
+                    <Link to={'/aggregation/survey/'+this.props.code} className="btn btn-primary btn-sm">
+                        Show answers aggregation
+                    </Link>
+                </div>
             </li>
         );
     }
@@ -17,9 +27,12 @@ class ListItem extends Component {
 class List extends Component {
     render() {
         return (
-            <div className="List">
+            <div className="Survey-list">
+                <h1>
+                    Survey list
+                </h1>
                 <ul>
-                    <ListItem code="XX2" label="Survey XX2" />
+                    <Item code="XX2" label="Survey XX2" />
                 </ul>
             </div>
         );

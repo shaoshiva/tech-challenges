@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './QuestionList.css';
 import Qcm from './Types/Qcm';
 import Numeric from './Types/Numeric';
+import './QuestionList.css';
+
+export class Label extends Component {
+    render() {
+        return (
+            <div className="label">
+                {this.props.children}
+            </div>
+        );
+    }
+}
 
 /**
  * Questions list
  */
-class Item extends Component {
+export class Item extends Component {
 
     static propTypes = {
         question: PropTypes.object.isRequired,
@@ -31,7 +41,7 @@ class Item extends Component {
 
     render() {
         return (
-            <div className="question">
+            <div className="QuestionList-item">
                 {this.renderByType()}
             </div>
         );
@@ -41,7 +51,7 @@ class Item extends Component {
 /**
  * Questions list
  */
-class List extends Component {
+export class List extends Component {
 
     static propTypes = {
         questions: PropTypes.array.isRequired,
@@ -49,8 +59,10 @@ class List extends Component {
 
     render() {
         return (
-            <div className="questions">
-                {this.props.questions.map((question, index) => <Item key={index} question={question} />)}
+            <div className="QuestionList">
+                {this.props.questions.map((question, index) =>
+                    <Item key={index} question={question} />
+                )}
             </div>
         );
     }
