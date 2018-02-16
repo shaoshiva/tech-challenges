@@ -14,7 +14,12 @@ class Qcm extends Component {
         values: PropTypes.array.isRequired,
     };
 
-    hightchartsConfig() {
+    /**
+     * Returns the highcharts config
+     *
+     * @returns {Object}
+     */
+    getHighchartsConfig() {
         return {
             chart: {
                 type: 'bar'
@@ -25,7 +30,6 @@ class Qcm extends Component {
             xAxis: {
                 type: 'category',
                 labels: {
-                    rotation: -45,
                     style: {
                         fontSize: '14px',
                         fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"'
@@ -43,13 +47,18 @@ class Qcm extends Component {
             },
             series: [{
                 name: 'Answer count',
-                data: this.hightchartsData(),
+                data: this.getHighchartsData(),
 
             }]
         };
     }
 
-    hightchartsData() {
+    /**
+     * Returns the highcharts data
+     *
+     * @returns {Array}
+     */
+    getHighchartsData() {
         return this.props.options.map((option, index) => {
             return [option, this.props.values[index]];
         });
@@ -59,7 +68,7 @@ class Qcm extends Component {
         return (
             <div className="Qcm">
                 <QuestionLabel>{this.props.label}</QuestionLabel>
-                <ReactHighcharts config={this.hightchartsConfig()} />
+                <ReactHighcharts config={this.getHighchartsConfig()} />
             </div>
         );
     }

@@ -8,7 +8,7 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div className="App container">
+                <div className="App container-fluid">
                     <Route exact path="/" component={SurveyList}/>
                     <Route exact path="/aggregation/survey/:code" component={SurveyAggregation}/>
                 </div>
