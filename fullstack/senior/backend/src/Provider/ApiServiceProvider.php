@@ -62,7 +62,7 @@ class ApiServiceProvider implements ServiceProviderInterface, BootableProviderIn
         });
 
         $app->get('/api/survey/statistics/aggregationByCode/{code}', function($code) use ($app) {
-            return $app['survey.statistics.controller']->getAggregationByCode($code);
+            return $app['survey.statistics.controller']->getAnswersAggregationByCode($code);
         });
     }
 }

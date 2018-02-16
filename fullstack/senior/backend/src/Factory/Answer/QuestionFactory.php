@@ -32,11 +32,11 @@ class QuestionFactory
      * @return mixed
      * @throws \Exception
      */
-    public function make($data)
+    public function make(array $data)
     {
         // Finds the class by type
         foreach ($this->classes as $class) {
-            if ($class::type() === $data->type) {
+            if ($class::type() === $data['type']) {
                 return new $class($data);
             }
         }

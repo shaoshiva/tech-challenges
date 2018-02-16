@@ -21,7 +21,7 @@ class Qcm extends QuestionAbstract implements QcmContract
      */
     public function options() : array
     {
-        return (array) $this->data->options;
+        return $this->get('options', []);
     }
 
     /**
@@ -31,6 +31,6 @@ class Qcm extends QuestionAbstract implements QcmContract
      */
     public function values() : array
     {
-        return (array) $this->data->answer;
+        return $this->get('answer', []);
     }
 }

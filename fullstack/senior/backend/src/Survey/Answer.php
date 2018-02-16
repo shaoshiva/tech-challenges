@@ -35,7 +35,7 @@ class Answer
      */
     public function surveyName()
     {
-        return $this->data->survey->name ?? null;
+        return $this->get('survey.name');
     }
 
     /**
@@ -45,7 +45,7 @@ class Answer
      */
     public function surveyCode() : string
     {
-        return $this->data->survey->code ?? null;
+        return $this->get('survey.code');
     }
 
     /**
@@ -55,6 +55,18 @@ class Answer
      */
     public function questions() : array
     {
-        return $this->data->survey->questions ?? [];
+        return $this->get('questions', []);
+    }
+
+    /**
+     * Returns a data value by path.
+     *
+     * @param $path
+     * @param null $default
+     * @return mixed
+     */
+    protected function get($path, $default = null)
+    {
+        return array_get($this->data, $path, $default);
     }
 }

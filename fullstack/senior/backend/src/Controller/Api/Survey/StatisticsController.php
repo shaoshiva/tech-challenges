@@ -13,11 +13,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class StatisticsController
 {
     /**
-     * Answer repository instance.
+     * The answer repository instance.
      *
      * @var AnswerRepository
      */
-    protected $repository;
+    protected $answerRepository;
 
     /**
      * StatisticsController constructor.
@@ -26,20 +26,20 @@ class StatisticsController
      */
     public function __construct(AnswerRepository $repository)
     {
-        $this->repository = $repository;
+        $this->answerRepository = $repository;
     }
 
     /**
-     * Gets statistics for answers by survey code.
+     * Gets answers aggregation by survey code.
      *
      * @param $code
      * @return JsonResponse
      */
-    public function getAggregationByCode($code)
+    public function getAnswersAggregationByCode($code)
     {
         return new JsonResponse([
-            'count' => $this->repository->countBySurveyCode($code),
-            'questions' => $this->repository->findAggregationBySurveyCode($code),
+            'count' => $this->answerRepository->countBySurveyCode($code),
+            'questions' => $this->answerRepository->findAggregationBySurveyCode($code),
         ]);
     }
 }

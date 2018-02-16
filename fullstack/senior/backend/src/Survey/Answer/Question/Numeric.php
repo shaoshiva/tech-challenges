@@ -21,6 +21,6 @@ class Numeric extends QuestionAbstract implements NumericContract
      */
     public function value() : int
     {
-        return (int) $this->data->answer;
+        return (int) $this->get('answer');
     }
 }

@@ -64,10 +64,10 @@ class AnswerRepository
     /**
      * Returns the answers of a survey by its code.
      *
-     * @param $code
+     * @param string $code
      * @return array
      */
-    public function findBySurveyCode($code) : array
+    public function findBySurveyCode(string $code) : array
     {
         $answers = $this->fetchDataList();
 
@@ -146,7 +146,7 @@ class AnswerRepository
     protected function fetchDataList() : array
     {
         $dataList = array_map(function($file) {
-            return json_decode(file_get_contents($file));
+            return json_decode(file_get_contents($file), true);
         }, $this->fetchDataFiles());
 
         return $this->answerFactory->makeAll($dataList);

@@ -38,15 +38,15 @@ class AnswerFactory
     public function make(array $data) : Answer
     {
         // Builds the answer's questions
-        $data->questions = array_map(function($question) {
+        $data['questions'] = array_map(function($question) {
             try {
                 return $this->questionFactory->make($question);
             } catch (\Exception $e) {
                 return null;
             }
-        }, $data->questions ?? []);
+        }, $data['questions'] ?? []);
 
-        $data->questions = array_filter($data->questions);
+        $data['questions'] = array_filter($data['questions']);
 
         return new Answer($data);
     }

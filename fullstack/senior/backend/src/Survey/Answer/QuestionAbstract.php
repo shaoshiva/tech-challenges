@@ -41,6 +41,18 @@ abstract class QuestionAbstract implements QuestionContract
      */
     public function label() : string
     {
-        return $this->data->label;
+        return $this->get('label');
+    }
+
+    /**
+     * Returns a data value by path.
+     *
+     * @param $path
+     * @param null $default
+     * @return mixed
+     */
+    protected function get($path, $default = null)
+    {
+        return array_get($this->data, $path, $default);
     }
 }
