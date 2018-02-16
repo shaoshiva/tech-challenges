@@ -2,7 +2,7 @@
 
 namespace IWD\JOBINTERVIEW\Provider;
 
-use IWD\JOBINTERVIEW\Controller\Api\Survey\StatisticsController;
+use IWD\JOBINTERVIEW\Controller\Api\Survey\AnswerController;
 use IWD\JOBINTERVIEW\Factory\Answer\QuestionFactory;
 use IWD\JOBINTERVIEW\Factory\AnswerFactory;
 use IWD\JOBINTERVIEW\Repository\Survey\AnswerRepository;
@@ -40,7 +40,7 @@ class ApiServiceProvider implements ServiceProviderInterface, BootableProviderIn
         };
 
         $app['survey.statistics.controller'] = function() use ($app) {
-            return new StatisticsController($app['survey.answer.repository']);
+            return new AnswerController($app['survey.answer.repository']);
         };
     }
 
@@ -61,8 +61,12 @@ class ApiServiceProvider implements ServiceProviderInterface, BootableProviderIn
             }
         });
 
-        $app->get('/api/survey/statistics/aggregationByCode/{code}', function($code) use ($app) {
+        $app->get('/api/survey/{code}/answersAggregation', function($code) use ($app) {
             return $app['survey.statistics.controller']->getAnswersAggregationByCode($code);
+        });
+
+        $app->get('/api/survey/{code}/answers', function($code) use ($app) {
+            return $app['survey.statistics.controller']->getAnswersByCode($code);
         });
     }
 }

@@ -4,6 +4,7 @@ namespace IWD\JOBINTERVIEW\Repository\Survey;
 
 use IWD\JOBINTERVIEW\Contract\Question\NumericContract;
 use IWD\JOBINTERVIEW\Contract\Question\QcmContract;
+use IWD\JOBINTERVIEW\Contract\QuestionContract;
 use IWD\JOBINTERVIEW\Factory\AnswerFactory;
 use IWD\JOBINTERVIEW\Survey\Answer;
 
@@ -62,6 +63,27 @@ class AnswerRepository
     }
 
     /**
+     * Retunrs the answers count.
+     *
+     * @return Answer[]
+     */
+    public function countAll() : array
+    {
+        return count($this->findAll());
+    }
+
+    /**
+     * Returns the answers count of a survey by its code.
+     *
+     * @param string $code
+     * @return int
+     */
+    public function countBySurveyCode(string $code) : int
+    {
+        return count($this->findBySurveyCode($code));
+    }
+
+    /**
      * Returns the answers of a survey by its code.
      *
      * @param string $code
@@ -76,20 +98,11 @@ class AnswerRepository
             return $answer->surveyCode() === $code;
         });
 
+        $answers = array_map(array($this, 'getAnswerAsArray'), $answers);
+
         $answers = array_values($answers);
 
         return $answers;
-    }
-
-    /**
-     * Returns the answers count of a survey by its code.
-     *
-     * @param string $code
-     * @return int
-     */
-    public function countBySurveyCode(string $code) : int
-    {
-        return count($this->findBySurveyCode($code));
     }
 
     /**
@@ -105,27 +118,18 @@ class AnswerRepository
         // Gets questions values
         $aggregations = array_reduce($answers, function(array $carry, Answer $answer) {
             foreach ($answer->questions() as $index => $question) {
-                // Numeric
+
+                // Initializes the question array
+                if (!isset($carry[$index])) {
+                    $carry[$index] = $this->getQuestionAsArray($question);
+                }
+
+                // Adds if numeric
                 if ($question instanceof NumericContract) {
-                    if (!isset($carry[$index])) {
-                        $carry[$index] = [
-                            'type' => $question::type(),
-                            'label' => $question->label(),
-                            'value' => $question->value(),
-                        ];
-                    }
                     $carry[$index]['value'] += $question->value();
                 }
-                // QCM
+                // Adds values if numeric
                 elseif ($question instanceof QcmContract) {
-                    if (!isset($carry[$index])) {
-                        $carry[$index] = [
-                            'type' => $question::type(),
-                            'label' => $question->label(),
-                            'options' => $question->options(),
-                            'values' => $question->values(),
-                        ];
-                    }
                     foreach ($question->values() as $valueIndex => $value) {
                         $carry[$index]['values'][$valueIndex] += (int) $value;
                     }
@@ -136,6 +140,52 @@ class AnswerRepository
         }, []);
 
         return $aggregations;
+    }
+
+    /**
+     * Returns the answer as an array.
+     *
+     * @param Answer $answer
+     * @return array
+     */
+    protected function getAnswerAsArray(Answer $answer)
+    {
+        return [
+            'survey' => [
+                'name' => $answer->surveyName(),
+                'code' => $answer->surveyCode(),
+            ],
+            'questions' => array_map(array($this, 'getQuestionAsArray'), $answer->questions())
+        ];
+    }
+
+    /**
+     * Returns the question as an array.
+     *
+     * @param QuestionContract $question
+     * @return array|null
+     */
+    protected function getQuestionAsArray(QuestionContract $question)
+    {
+        // Numeric
+        if ($question instanceof NumericContract) {
+            return [
+                'type' => $question::type(),
+                'label' => $question->label(),
+                'value' => $question->value(),
+            ];
+        }
+        // QCM
+        elseif ($question instanceof QcmContract) {
+            return [
+                'type' => $question::type(),
+                'label' => $question->label(),
+                'options' => $question->options(),
+                'values' => $question->values(),
+            ];
+        } else {
+            return null;
+        }
     }
 
     /**

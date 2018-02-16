@@ -6,11 +6,11 @@ use IWD\JOBINTERVIEW\Repository\Survey\AnswerRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class StatisticsController.
+ * Class AnswerController.
  *
  * @package IWD\JOBINTERVIEW\Controller\Api\Survey
  */
-class StatisticsController
+class AnswerController
 {
     /**
      * The answer repository instance.
@@ -20,7 +20,7 @@ class StatisticsController
     protected $answerRepository;
 
     /**
-     * StatisticsController constructor.
+     * AnswerController constructor.
      *
      * @param AnswerRepository $repository
      */
@@ -30,7 +30,21 @@ class StatisticsController
     }
 
     /**
-     * Gets answers aggregation by survey code.
+     * Gets the answers by survey code.
+     *
+     * @param $code
+     * @return JsonResponse
+     */
+    public function getAnswersByCode($code)
+    {
+        return new JsonResponse([
+            'count' => $this->answerRepository->countBySurveyCode($code),
+            'answers' => $this->answerRepository->findBySurveyCode($code),
+        ]);
+    }
+
+    /**
+     * Gets the answers aggregation by survey code.
      *
      * @param $code
      * @return JsonResponse
