@@ -1,0 +1,19 @@
+.Survey-list {
+}
+
+.Survey-list > ul {
+    margin: 2rem 0;
+    padding: 0;
+    list-style-type: none;
+    border-bottom: 1px solid lightgray;
+}
+
+.Survey-list-item {
+    padding: 1rem 0;
+    border-top: 1px solid lightgray;
+}
+
+.Survey-list-item .actions {
+    display: inline-block;
+    margin-left: 1rem;
+}

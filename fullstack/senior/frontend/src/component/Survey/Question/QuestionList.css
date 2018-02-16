@@ -1,0 +1,13 @@
+.QuestionList {
+    margin: 1rem 0;
+}
+
+.QuestionList-item {
+    margin: 0 0 1rem;
+    padding: 1rem 0;
+    border-top: 1px solid lightgray;
+}
+
+.QuestionList-item .label {
+    font-weight: bold;
+}
