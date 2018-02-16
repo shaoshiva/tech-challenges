@@ -86,7 +86,7 @@ class List extends Component {
 
         return (
             <div className="Aggregation">
-                <h1>Survey &laquo; {this.props.match.params.code} &raquo;</h1>
+                <h1>Answers of survey &laquo; {this.props.match.params.code} &raquo;</h1>
                 <div className="back-to">
                     <Link to="/">&laquo; Back to survey list</Link>
                 </div>

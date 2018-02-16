@@ -49,6 +49,12 @@ class Aggregation extends Component {
         };
     }
 
+    getChildContext() {
+        return {
+            answerCount: this.state.data ? this.state.data.count : null,
+        };
+    }
+
     componentDidMount() {
         // Requests the survey aggregation from the API
         apiSurvey.methods.answersAggregationByCode({
@@ -80,5 +86,9 @@ class Aggregation extends Component {
         );
     }
 }
+
+Aggregation.childContextTypes = {
+    answerCount: PropTypes.number
+};
 
 export default Aggregation;

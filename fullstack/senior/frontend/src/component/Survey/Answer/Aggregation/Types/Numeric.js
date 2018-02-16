@@ -10,16 +10,26 @@ class Numeric extends Component {
     static propTypes = {
         label: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
     };
 
     render() {
         return (
             <div className="number">
                 <QuestionLabel>{this.props.label}</QuestionLabel>
-                {this.props.value}
+                <div>
+                    Total = {this.props.value}
+                </div>
+                <div>
+                    Average = {this.props.value / this.context.answerCount}
+                </div>
             </div>
         );
     }
 }
+
+Numeric.contextTypes = {
+    answerCount: PropTypes.numeric,
+};
 
 export default Numeric;
