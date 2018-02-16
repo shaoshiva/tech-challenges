@@ -39,7 +39,7 @@ class AnswerController
     {
         return new JsonResponse([
             'count' => $this->answerRepository->countBySurveyCode($code),
-            'answers' => $this->answerRepository->findBySurveyCode($code),
+            'answers' => $this->answerRepository->getBySurveyCode($code),
         ]);
     }
 
@@ -53,7 +53,7 @@ class AnswerController
     {
         return new JsonResponse([
             'count' => $this->answerRepository->countBySurveyCode($code),
-            'questions' => $this->answerRepository->findAggregationBySurveyCode($code),
+            'questions' => $this->answerRepository->getAggregationBySurveyCode($code),
         ]);
     }
 }

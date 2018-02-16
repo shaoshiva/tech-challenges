@@ -73,7 +73,7 @@ class AnswerRepository
     }
 
     /**
-     * Returns the answers count of a survey by its code.
+     * Counts the answers of a survey by its code.
      *
      * @param string $code
      * @return int
@@ -84,7 +84,7 @@ class AnswerRepository
     }
 
     /**
-     * Returns the answers of a survey by its code.
+     * Finds the answers of a survey by its code.
      *
      * @param string $code
      * @return array
@@ -98,9 +98,22 @@ class AnswerRepository
             return $answer->surveyCode() === $code;
         });
 
-        $answers = array_map(array($this, 'getAnswerAsArray'), $answers);
-
         $answers = array_values($answers);
+
+        return $answers;
+    }
+
+    /**
+     * Returns the answers of a survey by its code.
+     *
+     * @param string $code
+     * @return array
+     */
+    public function getBySurveyCode(string $code) : array
+    {
+        $answers = $this->findBySurveyCode($code);
+
+        $answers = array_map(array($this, 'getAnswerAsArray'), $answers);
 
         return $answers;
     }
@@ -111,7 +124,7 @@ class AnswerRepository
      * @param string $code
      * @return array
      */
-    public function findAggregationBySurveyCode(string $code) : array
+    public function getAggregationBySurveyCode(string $code) : array
     {
         $answers = $this->findBySurveyCode($code);
 
