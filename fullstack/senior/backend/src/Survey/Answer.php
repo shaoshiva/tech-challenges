@@ -61,11 +61,11 @@ class Answer
     /**
      * Returns a data value by path.
      *
-     * @param $path
-     * @param null $default
+     * @param string|null $path
+     * @param mixed|null $default
      * @return mixed
      */
-    protected function get($path, $default = null)
+    protected function get(string $path = null, $default = null)
     {
         return array_get($this->data, $path, $default);
     }
