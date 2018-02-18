@@ -2,11 +2,6 @@
 
 return [
     /**
-     * Debug mode.
-     */
-    'debug' => true,
-
-    /**
      * The data files path for answers.
      */
     'answers_data_path' => ROOT_PATH.'/data',
