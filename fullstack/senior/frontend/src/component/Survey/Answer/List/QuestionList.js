@@ -4,6 +4,9 @@ import Qcm from './Types/Qcm';
 import Numeric from './Types/Numeric';
 import './QuestionList.css';
 
+/**
+ * Displays the label of a question
+ */
 export class Label extends Component {
     render() {
         return (
@@ -15,7 +18,7 @@ export class Label extends Component {
 }
 
 /**
- * Questions list
+ * Displays an item of a list of questions
  */
 export class Item extends Component {
 
@@ -49,7 +52,7 @@ export class Item extends Component {
 }
 
 /**
- * Questions list
+ * Displays a list of questions
  */
 export class List extends Component {
 

@@ -1,40 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Questions from './Aggregation/QuestionList';
+import QuestionsAggregation from './Aggregation/QuestionList';
+import Loader from '../../Loader';
+import AnswersCount from './AnswersCount';
 import apiSurvey from '../../../api/survey';
 import './Aggregation.css';
-
-/**
- * Displays the pre-loader
- */
-class Loader extends Component {
-    render() {
-        return (
-            <div className="Aggregation-loader">
-                @loader
-            </div>
-        );
-    }
-}
-
-/**
- * Displays the answers counter
- */
-class AnswersCount extends Component {
-
-    static propTypes = {
-        count: PropTypes.number.isRequired,
-    };
-
-    render() {
-        return (
-            <div className="Aggregation-answers-count">
-                Number of answers: {this.props.count}
-            </div>
-        );
-    }
-}
 
 /**
  * Displays the answers aggregation of a survey
@@ -60,7 +31,7 @@ class Aggregation extends Component {
         apiSurvey.methods.answersAggregationByCode({
             path: {
                 code: this.props.match.params.code,
-            }
+            },
         }, (data, response) => {
             this.setState({
                 loaded: true,
@@ -70,6 +41,7 @@ class Aggregation extends Component {
     }
 
     render() {
+        // Displays the loader while loading the remote data
         if (!this.state.loaded) {
             return <Loader />;
         }
@@ -81,7 +53,7 @@ class Aggregation extends Component {
                     <Link to="/">&laquo; Back to survey list</Link>
                 </div>
                 <AnswersCount count={this.state.data.count}/>
-                <Questions questions={this.state.data.questions} />
+                <QuestionsAggregation questions={this.state.data.questions} />
             </div>
         );
     }

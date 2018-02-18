@@ -37,7 +37,7 @@ class AnswerFactory
      */
     public function make(array $data) : Answer
     {
-        // Builds the answer's questions
+        // Builds the questions of the answer
         $data['questions'] = array_map(function($question) {
             try {
                 return $this->questionFactory->make($question);

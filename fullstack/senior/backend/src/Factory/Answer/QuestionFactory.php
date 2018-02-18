@@ -18,6 +18,7 @@ class QuestionFactory
 
     /**
      * QuestionFactory constructor.
+     *
      * @param array $classes
      */
     public function __construct(array $classes)
@@ -34,6 +35,10 @@ class QuestionFactory
      */
     public function make(array $data)
     {
+        if (!isset($data['type'])) {
+            throw new \Exception('Missing question type.');
+        }
+
         // Finds the class by type
         foreach ($this->classes as $class) {
             if ($class::type() === $data['type']) {
@@ -41,6 +46,6 @@ class QuestionFactory
             }
         }
 
-        throw new \Exception('Missing type or type not found.');
+        throw new \Exception('Unknown question type.');
     }
 }

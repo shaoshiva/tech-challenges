@@ -1,41 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Loader from '../../Loader';
+import AnswersCount from './AnswersCount';
 import Questions from './List/QuestionList';
 import apiSurvey from '../../../api/survey';
 import './Aggregation.css';
 
 /**
- * Displays the pre-loader
+ * Displays the answers
  */
-class Loader extends Component {
-    render() {
-        return (
-            <div className="Aggregation-loader">
-                @loader
-            </div>
-        );
-    }
-}
-
-/**
- * Displays the answers counter
- */
-class AnswersCount extends Component {
-
-    static propTypes = {
-        count: PropTypes.number.isRequired,
-    };
-
-    render() {
-        return (
-            <div className="Aggregation-answers-count">
-                Number of answers: {this.props.count}
-            </div>
-        );
-    }
-}
-
 class Answers extends Component {
 
     static propTypes = {
@@ -53,7 +27,7 @@ class Answers extends Component {
 }
 
 /**
- * Displays the answers aggregation of a survey
+ * Displays the aggregated answers of a survey
  */
 class List extends Component {
 
@@ -80,6 +54,7 @@ class List extends Component {
     }
 
     render() {
+        // Displays the loader while loading the remote data
         if (!this.state.loaded) {
             return <Loader />;
         }

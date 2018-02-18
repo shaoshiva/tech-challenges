@@ -4,7 +4,7 @@ import ReactHighcharts from 'react-highcharts';
 import { Label as QuestionLabel } from '../QuestionList';
 
 /**
- * Displays a question of type QCM
+ * Displays the aggregated values of a QCM question
  */
 class Qcm extends Component {
 

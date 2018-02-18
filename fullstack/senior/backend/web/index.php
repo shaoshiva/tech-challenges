@@ -9,9 +9,4 @@ if (php_sapi_name() === 'cli-server' && is_file($filename)) {
     return false;
 }
 
-function dd() {
-    dump(func_get_args());
-    die();
-}
-
 $app = require_once 'src/Client/Webapp/app.php';

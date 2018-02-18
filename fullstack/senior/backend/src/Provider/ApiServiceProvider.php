@@ -30,15 +30,12 @@ class ApiServiceProvider implements ServiceProviderInterface, BootableProviderIn
             return (new AnswerRepository($app['survey.answer.factory']))
                 ->setDataPath($app['config']['answers_data_path'] ?? '');
         };
-
         $app['survey.answer.factory'] = function() use ($app) {
             return new AnswerFactory($app['survey.question.factory']);
         };
-
         $app['survey.question.factory'] = function() use ($app) {
             return new QuestionFactory($app['config']['survey_questions_classes'] ?? []);
         };
-
         $app['survey.statistics.controller'] = function() use ($app) {
             return new AnswerController($app['survey.answer.repository']);
         };
@@ -51,8 +48,8 @@ class ApiServiceProvider implements ServiceProviderInterface, BootableProviderIn
      */
     public function boot(Application $app)
     {
+        // Registers the JSON data decoder for JSON requests
         $app->before(function (Request $request) {
-            // Registers JSON data decoder for JSON requests
             if (0 === strpos((string)$request->headers->get('Content-Type'), 'application/json')) {
                 if (!is_array($request->getContent())) {
                     $data = json_decode($request->getContent(), true);
@@ -61,10 +58,10 @@ class ApiServiceProvider implements ServiceProviderInterface, BootableProviderIn
             }
         });
 
+        // Maps the API routes
         $app->get('/api/survey/{code}/answersAggregation', function($code) use ($app) {
             return $app['survey.statistics.controller']->getAnswersAggregationByCode($code);
         });
-
         $app->get('/api/survey/{code}/answers', function($code) use ($app) {
             return $app['survey.statistics.controller']->getAnswersByCode($code);
         });

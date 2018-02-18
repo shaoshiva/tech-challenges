@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Label as QuestionLabel } from '../QuestionList';
 
 /**
- * Displays a question of type Numeric
+ * Displays the aggregated values of a numeric question
  */
 class Numeric extends Component {
 

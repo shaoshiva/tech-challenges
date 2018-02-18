@@ -113,6 +113,7 @@ class AnswerRepository
     {
         $answers = $this->findBySurveyCode($code);
 
+        // Converts answers to array
         $answers = array_map(array($this, 'getAnswerAsArray'), $answers);
 
         return $answers;
@@ -128,7 +129,7 @@ class AnswerRepository
     {
         $answers = $this->findBySurveyCode($code);
 
-        // Gets questions values
+        // Gets the aggregated values of the questions
         $aggregations = array_reduce($answers, function(array $carry, Answer $answer) {
             foreach ($answer->questions() as $index => $question) {
 
@@ -137,11 +138,11 @@ class AnswerRepository
                     $carry[$index] = $this->getQuestionAsArray($question);
                 }
 
-                // Adds if numeric
+                // Numeric (sum the values)
                 if ($question instanceof NumericContract) {
                     $carry[$index]['value'] += $question->value();
                 }
-                // Adds values if numeric
+                // QCM (count the values)
                 elseif ($question instanceof QcmContract) {
                     foreach ($question->values() as $valueIndex => $value) {
                         $carry[$index]['values'][$valueIndex] += (int) $value;

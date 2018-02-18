@@ -11,17 +11,15 @@ use Silex\Application;
 
 $app = new Application();
 
+// Loads the app config
 $app['config'] = include ROOT_PATH.'/config/app.php';
-$app['debug'] = $app['config']['debug'] ?? false;
 
-/**
- * Service providers
- */
-
+// Registers the service providers
 $app->register(new Silex\Provider\VarDumperServiceProvider());
 $app->register(new \IWD\JOBINTERVIEW\Provider\AppServiceProvider());
 $app->register(new \IWD\JOBINTERVIEW\Provider\ApiServiceProvider());
 
+// Runs the app
 $app->run();
 
 return $app;
